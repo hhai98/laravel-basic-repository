@@ -50,6 +50,5 @@ add to `config\app.php`
 ```
 ## step 4
 run `php artisan make:repository {name}`
-Example:
 
-`php artisan make:repository User`
+Example: `php artisan make:repository User`
