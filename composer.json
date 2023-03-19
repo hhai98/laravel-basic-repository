@@ -1,6 +1,7 @@
 {
-  "name": "hoovhai/basic-repositories",
+  "name": "hoovhai/laravel-basic-repository",
   "description": "A package to make simple repository design pattern",
+  "keywords": ["laravel", "repository", "repository design pattern"],
   "license": "MIT",
   "authors": [{
     "name": "Hoovhai",

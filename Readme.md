@@ -1,12 +1,12 @@
 ## step 1
 
-`composer require hoovhai/basic-repositories`
+`composer require hoovhai/laravel-basic-repository`
 
 or add to `composer.json` and run `composer install`
 
 ```
 "require-dev": {
-    "hoovhai/basic-repositories": "dev-master"
+    "hoovhai/laravel-basic-repository": "dev-master"
 },
 ```
 
@@ -26,11 +26,11 @@ class CommandsServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Hoovhai\Repositories\Commands\GenerateRepositoryCommand::class,
-                \Hoovhai\Repositories\Commands\MakeContractCommand::class,
-                \Hoovhai\Repositories\Commands\MakeControllerCommand::class,
                 \Hoovhai\Repositories\Commands\MakeRepositoryCommand::class,
-                \Hoovhai\Repositories\Commands\MakeServiceProviderCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateContractCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateControllerCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateRepositoryCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateServiceProviderCommand::class,
             ]);
         }
     }
@@ -44,7 +44,6 @@ add to `config\app.php`
 'providers' => [
     ...
     App\Providers\CommandsServiceProvider::class,
-    App\Providers\RepositoriesServiceProvider::class,
     ...
 ],
 ```
@@ -52,3 +51,40 @@ add to `config\app.php`
 run `php artisan make:repository {name}`
 
 Example: `php artisan make:repository User`
+
+## step 5
+add to `config\app.php`
+```php
+'providers' => [
+    ...
+    App\Providers\RepositoriesServiceProvider::class,
+    ...
+],
+```
+
+## Example
+
+```php
+// add to route web or api
+Route::get('/index', 'UserController@index')->name('getAllUser');
+```
+```php
+// add to controller
+public function index()
+{
+    return $this->repo->index();
+}
+```
+```php
+// add to contract
+public function index();
+```
+```php
+// add to your repository
+public function index()
+{
+    // code here
+}
+```
+
+When you call the method `index` in the controller, this will be forwarded to the `index` in the `repository`vie `RepositoriesServiceProvider`
