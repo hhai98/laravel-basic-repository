@@ -1,6 +1,6 @@
 <?php
 
-namespace Hoovhai\Repositories;
+namespace Hoovhai\Repositories\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
