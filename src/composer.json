@@ -1,0 +1,15 @@
+{
+  "name": "hoovhai/basic-repositories",
+   "description": "A package to make simple repository design pattern",
+   "authors": [{
+      "name": "Hoovhai",
+      "email": "hoovhai@gmail.com"
+ }],
+  "license": "MIT",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+     "Hoovhai\\Repositories\\": "src/"
+    }
+ }
+}
