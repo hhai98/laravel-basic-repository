@@ -32,7 +32,7 @@ class GenerateRepositoryCommand extends Command
         $serviceProviderPath = base_path() . '/app/Providers/RepositoriesServiceProvider.php';
 
         if (!file_exists($serviceProviderPath)) {
-            $this->callSilent('create:service-provider');
+            $this->callSilent('create:service-provider', ['name' => $this->argument('name')]);
         }
 
         $file = fopen($serviceProviderPath, 'r');

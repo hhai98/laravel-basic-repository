@@ -30,6 +30,11 @@ class MakeServiceProviderCommand extends GeneratorCommand
         return __DIR__.'/Stubs/service.stub';
     }
 
+    protected function getNameInput()
+    {
+        return 'RepositoriesServiceProvider';
+    }
+
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace . '\Providers';
