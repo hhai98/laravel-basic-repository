@@ -2,41 +2,15 @@
 
 namespace Hoovhai\Repositories\Commands;
 
-use Illuminate\Console\GeneratorCommand;
+use Hoovhai\Repositories\Commands\BaseGenerateCommand;
 
-class GenerateServiceProviderCommand extends GeneratorCommand
+class GenerateServiceProviderCommand extends BaseGenerateCommand
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'create:service-provider {name}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Generate service provider';
-
-        /**
-     * Get the stub file for the generator.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return __DIR__.'/Stubs/service.stub';
-    }
+    protected $inputType = 'Service-provider';
+    protected $namespace = '\Providers';
 
     protected function getNameInput()
     {
         return 'RepositoriesServiceProvider';
-    }
-
-    protected function getDefaultNamespace($rootNamespace)
-    {
-        return $rootNamespace . '\Providers';
     }
 }

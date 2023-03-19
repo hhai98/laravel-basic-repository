@@ -7,9 +7,16 @@ use Illuminate\Filesystem\Filesystem;
 
 class BaseGenerateCommand extends GeneratorCommand
 {
-    protected $baseNamespace = '';
-    protected $baseNameInput = '';
+    protected $inputType = '';
+    protected $namespace = '';
+    protected $name = '';
 
+    public function __construct(Filesystem $file)
+    {
+        $this->name = 'create:' . strtolower($this->inputType) . ' {name}';
+
+        parent::__construct($file);
+    }
     /**
      * Get the stub file for the generator.
      *
@@ -17,17 +24,17 @@ class BaseGenerateCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__ . '//Stubs//' . strtolower($this->baseNamespace) . '.stub';
+        return __DIR__ . '//Stubs//' . strtolower($this->inputType) . '.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . $this->baseNamespace;
+        return $rootNamespace . $this->namespace;
     }
 
     protected function getNameInput()
     {
-        return trim($this->argument('name')) . $this->baseNameInput;
+        return trim($this->argument('name')) . $this->inputType;
     }
 
     protected function replaceNamespace(&$stub, $name)
