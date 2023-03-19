@@ -1,19 +1,13 @@
 {
   "name": "hoovhai/basic-repositories",
-   "description": "A package to make simple repository design pattern",
-   "authors": [{
-      "name": "Hoovhai",
-      "email": "hoovhai@gmail.com"
- }],
+  "description": "A package to make simple repository design pattern",
+  "authors": [{
+    "name": "Hoovhai",
+    "email": "hoovhai@gmail.com"
+  }],
   "license": "MIT",
   "require": {
     "php": "^7.2|^8.0"
-  },
-  "repositories": {
-    "foo": {
-      "type": "composer",
-      "url": "http://packages.foo.com"
-    }
   },
   "autoload": {
     "psr-4": {
