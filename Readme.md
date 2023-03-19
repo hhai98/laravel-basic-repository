@@ -1,8 +1,8 @@
 ## step 1
 
-composer require hoovhai/basic-repositories
+`composer require hoovhai/basic-repositories`
 
-or add to composer.json and run composer install
+or add to `composer.json` and run `composer install`
 
 ```
 "require-dev": {
@@ -12,7 +12,7 @@ or add to composer.json and run composer install
 ```
 
 ## step 2
-create "app/Providers/CommandsServiceProvider.php"
+create `app/Providers/CommandsServiceProvider.php`
 
 ```php
 <?php
@@ -40,7 +40,7 @@ class CommandsServiceProvider extends ServiceProvider
 
 ## step 3
 
-add to "config\app.php"
+add to `config\app.php`
 ```php
 App\Providers\RepositoriesPackageServiceProvider::class,
 App\Providers\RepositoriesServiceProvider::class,
