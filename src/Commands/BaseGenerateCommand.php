@@ -39,6 +39,8 @@ class BaseGenerateCommand extends GeneratorCommand
 
     protected function replaceNamespace(&$stub, $name)
     {
+        parent::replaceNamespace($stub, $name);
+        
         $ArrNameContract = explode('/', $this->argument('name'));
         $lastName = array_pop($ArrNameContract)  . 'Contract';
         $nameSpace = '';
