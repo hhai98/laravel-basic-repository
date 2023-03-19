@@ -44,7 +44,6 @@ add to `config\app.php`
 'providers' => [
     ...
     App\Providers\CommandsServiceProvider::class,
-    App\Providers\RepositoriesServiceProvider::class,
     ...
 ],
 ```
@@ -52,3 +51,40 @@ add to `config\app.php`
 run `php artisan make:repository {name}`
 
 Example: `php artisan make:repository User`
+
+## step 5
+add to `config\app.php`
+```php
+'providers' => [
+    ...
+    App\Providers\RepositoriesServiceProvider::class,
+    ...
+],
+```
+
+## Example
+
+```php
+// add to route web or api
+Route::get('/index', 'UserController@index')->name('getAllUser');
+```
+```php
+// add to controller
+public function index()
+{
+    return $this->repo->index();
+}
+```
+```php
+// add to contract
+public function index();
+```
+```php
+// add to your repository
+public function index()
+{
+    // code here
+}
+```
+
+When you call method `index` in `controller`, this will be forward to `index` in `repository`
