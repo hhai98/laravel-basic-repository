@@ -4,25 +4,29 @@ namespace Hoovhai\Repositories\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class MakeControllerCommand extends GeneratorCommand
+class BaseGenerateCommand extends GeneratorCommand
 {
-    protected $name = 'create:controller {name} {nameSpaceContract}';
+    protected $baseNamespace = '';
+    protected $baseNameInput = '';
 
-    protected $description = 'Create a controller';
-
+        /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
     protected function getStub()
     {
-        return __DIR__.'/Stubs/controller.stub';
-    }
-
-    protected function getNameInput()
-    {
-        return trim($this->argument('name')) . 'Controller';
+        return __DIR__ . '//Stubs//' . strtolower($this->baseNamespace) . '.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Http\Controllers';
+        return $rootNamespace . $this->baseNamespace;
+    }
+
+    protected function getNameInput()
+    {
+        return trim($this->argument('name')) . $this->baseNameInput;
     }
 
     protected function replaceNamespace(&$stub, $name)
@@ -36,10 +40,12 @@ class MakeControllerCommand extends GeneratorCommand
 
         $stub = str_replace(
             [
+                'DummyContractNamespace',
                 'DummyContract',
             ],
             [
                 $nameSpace . $lastName,
+                $lastName,
             ],
             $stub
         );

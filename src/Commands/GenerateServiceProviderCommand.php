@@ -4,7 +4,7 @@ namespace Hoovhai\Repositories\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class MakeServiceProviderCommand extends GeneratorCommand
+class GenerateServiceProviderCommand extends GeneratorCommand
 {
     /**
      * The name and signature of the console command.
@@ -18,7 +18,7 @@ class MakeServiceProviderCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Make service provider';
+    protected $description = 'Generate service provider';
 
         /**
      * Get the stub file for the generator.

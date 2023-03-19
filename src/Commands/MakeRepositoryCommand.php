@@ -2,65 +2,100 @@
 
 namespace Hoovhai\Repositories\Commands;
 
-use Illuminate\Console\GeneratorCommand;
+use Illuminate\Console\Command;
 
-class MakeRepositoryCommand extends GeneratorCommand
+class MakeRepositoryCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'create:repository {name}';
+    protected $signature = 'make:repository {name}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make repository';
+    protected $description = 'Make basic repository design pattern';
 
-        /**
-     * Get the stub file for the generator.
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function handle()
+    {
+        $this->addToServiceContainer();
+
+        $this->callGenerateCommand('repository');
+        $this->callGenerateCommand('contract');
+        $this->callGenerateCommand('controller');
+
+        $this->info('Create Repository Success !');
+    }
+
+    /**
+     * Call the console generate
      *
-     * @return string
+     * @var string
      */
-    protected function getStub()
+    private function callGenerateCommand(string $name)
     {
-        return __DIR__.'/Stubs/repository.stub';
+        try {
+            $this->callSilent("create:$name", ['name' => $this->argument('name')]);
+            $this->info("Create $name success !");
+        } catch (\Exception $e) {
+            $this->error("Create $name failed !");
+            throw $e;
+        }
     }
 
-    protected function getDefaultNamespace($rootNamespace)
+    private function addToServiceContainer()
     {
-        return $rootNamespace . '\Repositories';
-    }
+        $name = str_replace('/', '\\', $this->argument('name'));
+        $serviceProviderPath = base_path() . '/app/Providers/RepositoriesServiceProvider.php';
 
-    protected function getNameInput()
-    {
-        return trim($this->argument('name')) . 'Repository';
-    }
-
-    protected function replaceNamespace(&$stub, $name)
-    {
-        $ArrNameContract = explode('/', $this->argument('name'));
-        $lastName = array_pop($ArrNameContract)  . 'Contract';
-        $nameSpace = '';
-        foreach ($ArrNameContract as $nameContract) {
-            $nameSpace .= "$nameContract\\";
+        if (!file_exists($serviceProviderPath)) {
+            $this->callGenerateCommand('service-provider');
         }
 
-        $stub = str_replace(
-            [
-                'DummyContractNamespace',
-                'DummyContract',
-            ],
-            [
-                $nameSpace . $lastName,
-                $lastName,
-            ],
-            $stub
-        );
+        $file = fopen($serviceProviderPath, 'r');
+        $lineFile = [];
+        while(! feof($file)) {
+            $lineFile[] = fgets($file);
+        }
+        fclose($file);
 
-        return $this;
+        $check = false;
+        $write = false;
+        $push = false;
+
+        foreach ($lineFile as $key => $line) {
+            if ($push) {
+                $lineFile[++$key] = $line;
+                continue;
+            }
+            if ($write) {
+                $lineFile[++$key] = '        $this->app->singleton(\App\Contracts\\' . $name . 'Contract::class, \App\Repositories\\' . $name . 'Repository::class);' . "\r\n";
+                $push = true;
+                $write = false;
+                $check = false;
+                continue;
+            }
+            if ($check) {
+                $write = true;
+            }
+            if (!$check && preg_match('/public function register()/', $line)) {
+                $check = true;
+            }
+        }
+
+        $file = fopen($serviceProviderPath, 'w');
+        foreach ($lineFile as $key => $line) {
+            fwrite($file, $line);
+        }
+        fclose($file);
     }
 }
