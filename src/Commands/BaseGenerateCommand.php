@@ -15,7 +15,7 @@ class BaseGenerateCommand extends GeneratorCommand
     {
         parent::__construct($files);
         
-        $this->name = 'create:' . strtolower($this->baseNamespace) . '{name}';
+        $this->name = 'create:' . strtolower($this->baseNamespace) . ' {name}';
     }
 
     /**
