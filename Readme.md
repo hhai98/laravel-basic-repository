@@ -1,12 +1,12 @@
 ## step 1
 
-`composer require hoovhai/laravel-basic-repositories`
+`composer require hoovhai/laravel-basic-repository`
 
 or add to `composer.json` and run `composer install`
 
 ```
 "require-dev": {
-    "hoovhai/laravel-basic-repositories": "dev-master"
+    "hoovhai/laravel-basic-repository": "dev-master"
 },
 ```
 
