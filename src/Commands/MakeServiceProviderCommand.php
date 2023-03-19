@@ -11,7 +11,7 @@ class MakeServiceProviderCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'create:service-provider';
+    protected $signature = 'create:service-provider {name}';
 
     /**
      * The console command description.
