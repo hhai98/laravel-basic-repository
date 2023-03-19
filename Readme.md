@@ -1,12 +1,12 @@
 ## step 1
 
-`composer require hoovhai/basic-repositories`
+`composer require hoovhai/laravel-basic-repositories`
 
 or add to `composer.json` and run `composer install`
 
 ```
 "require-dev": {
-    "hoovhai/basic-repositories": "dev-master"
+    "hoovhai/laravel-basic-repositories": "dev-master"
 },
 ```
 
@@ -26,11 +26,11 @@ class CommandsServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Hoovhai\Repositories\Commands\GenerateRepositoryCommand::class,
-                \Hoovhai\Repositories\Commands\MakeContractCommand::class,
-                \Hoovhai\Repositories\Commands\MakeControllerCommand::class,
                 \Hoovhai\Repositories\Commands\MakeRepositoryCommand::class,
-                \Hoovhai\Repositories\Commands\MakeServiceProviderCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateContractCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateControllerCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateRepositoryCommand::class,
+                \Hoovhai\Repositories\Commands\GenerateServiceProviderCommand::class,
             ]);
         }
     }
