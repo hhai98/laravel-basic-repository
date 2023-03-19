@@ -9,14 +9,6 @@ class BaseGenerateCommand extends GeneratorCommand
 {
     protected $baseNamespace = '';
     protected $baseNameInput = '';
-    protected $name = '';
-
-    public function __construct(Filesystem $files)
-    {
-        $this->name = 'create:' . strtolower($this->baseNamespace) . ' {name}';
-
-        parent::__construct($files);
-    }
 
     /**
      * Get the stub file for the generator.

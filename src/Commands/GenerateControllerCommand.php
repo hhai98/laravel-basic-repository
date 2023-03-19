@@ -8,4 +8,5 @@ class GenerateControllerCommand extends BaseGenerateCommand
 {
     protected $baseNamespace = 'Controller';
     protected $baseNameInput = '\Http\Controllers';
+    protected $name = 'create:controller {name}';
 }

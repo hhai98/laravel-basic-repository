@@ -27,12 +27,11 @@ class MakeRepositoryCommand extends Command
 
     public function handle()
     {
-        $this->addToServiceContainer();
-
         $this->callGenerateCommand('repository');
         $this->callGenerateCommand('contract');
         $this->callGenerateCommand('controller');
 
+        $this->addToServiceContainer();
         $this->info('Create Repository Success !');
     }
 
