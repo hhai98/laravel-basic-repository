@@ -32,6 +32,6 @@ class MakeServiceProviderCommand extends GeneratorCommand
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\App\Providers';
+        return $rootNamespace . '\Providers';
     }
 }
