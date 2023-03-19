@@ -87,4 +87,4 @@ public function index()
 }
 ```
 
-When you call method `index` in `controller`, this will be forward to `index` in `repository`
+When you call the method `index` in the controller, this will be forwarded to the `index` in the `repository`vie `RepositoriesServiceProvider`
