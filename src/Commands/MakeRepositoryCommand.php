@@ -18,7 +18,7 @@ class MakeRepositoryCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Make repository and contract';
+    protected $description = 'Make repository';
 
         /**
      * Get the stub file for the generator.

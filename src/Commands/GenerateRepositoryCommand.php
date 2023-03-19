@@ -29,7 +29,13 @@ class GenerateRepositoryCommand extends Command
     private function addToServiceContainer()
     {
         $name = str_replace('/', '\\', $this->argument('name'));
-        $file = fopen(base_path() . '/app/Providers/RepositoriesServiceProvider.php', 'r');
+        $serviceProviderPath = base_path() . '/app/Providers/RepositoriesServiceProvider.php';
+
+        if (!file_exists($serviceProviderPath)) {
+            $this->callSilent('create:service-provider');
+        }
+
+        $file = fopen($serviceProviderPath, 'r');
         $lineFile = [];
         while(! feof($file)) {
             $lineFile[] = fgets($file);
@@ -60,7 +66,7 @@ class GenerateRepositoryCommand extends Command
             }
         }
 
-        $file = fopen(base_path() . '/app/Providers/RepositoriesServiceProvider.php', 'w');
+        $file = fopen($serviceProviderPath, 'w');
         foreach ($lineFile as $key => $line) {
             fwrite($file, $line);
         }
