@@ -32,7 +32,7 @@ class MakeRepositoryCommand extends Command
         $this->callGenerateCommand('controller');
 
         $this->addToServiceContainer();
-        $this->info('Create Repository Success !');
+        $this->info('All done, enjoy!');
     }
 
     /**
