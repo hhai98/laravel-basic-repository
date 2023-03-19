@@ -41,8 +41,12 @@ class CommandsServiceProvider extends ServiceProvider
 
 add to `config\app.php`
 ```php
-App\Providers\RepositoriesPackageServiceProvider::class,
-App\Providers\RepositoriesServiceProvider::class,
+'providers' => [
+    ...
+    App\Providers\CommandsServiceProvider::class,
+    App\Providers\RepositoriesServiceProvider::class,
+    ...
+],
 ```
 ## step 4
 run `php artisan make:repository {name}`
