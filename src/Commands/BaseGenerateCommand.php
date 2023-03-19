@@ -3,13 +3,22 @@
 namespace Hoovhai\Repositories\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Filesystem\Filesystem;
 
 class BaseGenerateCommand extends GeneratorCommand
 {
     protected $baseNamespace = '';
     protected $baseNameInput = '';
+    protected $name = '';
 
-        /**
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct($files);
+        
+        $this->name = 'create:' . strtolower($this->baseNamespace) . '{name}';
+    }
+
+    /**
      * Get the stub file for the generator.
      *
      * @return string
