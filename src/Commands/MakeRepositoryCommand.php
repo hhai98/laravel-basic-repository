@@ -67,20 +67,21 @@ class MakeRepositoryCommand extends Command
         }
         fclose($file);
 
-        $check = false;
-        $write = false;
-        $push = false;
+        $check = $write = $push = false;
+        $createLine = '        $this->app->singleton(\App\Contracts\\' . $name . 'Contract::class, \App\Repositories\\' . $name . 'Repository::class);' . "\r\n";
 
         foreach ($lineFile as $key => $line) {
+            if (preg_match("/$createLine/", $line)) {
+                break;
+            }
             if ($push) {
                 $lineFile[++$key] = $line;
                 continue;
             }
             if ($write) {
-                $lineFile[++$key] = '        $this->app->singleton(\App\Contracts\\' . $name . 'Contract::class, \App\Repositories\\' . $name . 'Repository::class);' . "\r\n";
+                $lineFile[++$key] = $createLine;
                 $push = true;
-                $write = false;
-                $check = false;
+                $write = $check = false;
                 continue;
             }
             if ($check) {
