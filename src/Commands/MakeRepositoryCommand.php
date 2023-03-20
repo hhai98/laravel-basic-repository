@@ -51,6 +51,10 @@ class MakeRepositoryCommand extends Command
         }
     }
 
+    /**
+     * Bind new contract and repository to RepositoriesServiceProvider
+     *
+     */
     private function addToServiceContainer()
     {
         $name = str_replace('/', '\\', $this->argument('name'));
@@ -68,10 +72,12 @@ class MakeRepositoryCommand extends Command
         fclose($file);
 
         $check = $write = $push = false;
-        $createLine = '\\App\\Contracts\\' . $name . 'Contract::class, \\App\\Repositories\\' . $name . 'Repository::class);';
-
+        // make regex
+        $regex = '.+App.+Contracts.+' . $name . 'Contract::class, .+App.+Repositories.+' . $name . 'Repository::class';
+        
         foreach ($lineFile as $key => $line) {
-            if (preg_match("/$createLine/", $line)) {
+            // check old file RepositoriesServiceProvider have Contract and Repository yet ?
+            if (preg_match("/$regex/", $line)) {
                 break;
             }
             if ($push) {
@@ -79,7 +85,8 @@ class MakeRepositoryCommand extends Command
                 continue;
             }
             if ($write) {
-                $lineFile[++$key] = $createLine  . "\r\n";
+                //create new line in RepositoriesServiceProvider
+                $lineFile[++$key] =  '        $this->app->singleton(' . str_replace('.+', '\\', $regex)  . "); \r\n";
                 $push = true;
                 $write = $check = false;
                 continue;
