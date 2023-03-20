@@ -5,7 +5,7 @@ namespace DummyNamespace;
 use App\Contracts\DummyContractNamespace;
 use App\Traits\ResponseAPI;
 
-class DummyClass extends DummyContract
+class DummyClass implements DummyContract
 {
     use ResponseAPI;
 
